@@ -1,6 +1,6 @@
 import React from 'react';
 import Board from './Board';
-import calculateWinner from './calculateWinner';
+import calculateWinner from '../helpers/calculateWinner';
 
 class Game extends React.Component {
   constructor(props) {
@@ -20,10 +20,10 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares)) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[i] = this.state.xIsNext ? '❌' : '⭕';
     this.setState({
       history: history.concat([
         {
