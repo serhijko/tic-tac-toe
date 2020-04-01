@@ -56,9 +56,15 @@ class Game extends React.Component {
       const pos = move
         ? ' ' + coord.player + ' to col ' + coord.col + ' to row ' + coord.row
         : null;
+      const bold = move === this.state.stepNumber ? "bold" : null;
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        <li key={move} className={bold}>
+          <button
+            className={bold}
+            onClick={() => this.jumpTo(move)}
+          >
+            {desc}
+          </button>
           {pos}
         </li>
       );
