@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from './Board';
 import calculateWinner from '../helpers/calculateWinner';
+import calculatePosition from '../helpers/calculatePosition';
 
 class Game extends React.Component {
   constructor(props) {
@@ -48,12 +49,17 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
+      const coord = move ? calculatePosition(step.squares, history[move - 1].squares) : null;
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
+      const pos = move
+        ? ' ' + coord.player + ' to col ' + coord.col + ' to row ' + coord.row
+        : null;
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          {pos}
         </li>
       );
     });
@@ -62,7 +68,7 @@ class Game extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      status = 'Next player: ' + (this.state.xIsNext ? '❌' : '⭕');
     }
 
     return (
