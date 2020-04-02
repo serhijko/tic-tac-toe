@@ -9,13 +9,18 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  const win = {};
+  win.winSquares = new Set();
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      if (!win.winner) {
+        win.winner = squares[a];
+      }
+      win.winSquares.add(a).add(b).add(c);
     }
   }
-  return null;
+  return win;
 }
 
 export default calculateWinner;

@@ -7,6 +7,7 @@ class Board extends React.Component {
       <Square
         key={"square " + i}
         value={this.props.squares[i]}
+        className={this.props.winSquares.has(i) ? "square win" : "square"}
         onClick={() => this.props.onClick(i)}
       />
     );

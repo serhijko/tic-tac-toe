@@ -20,7 +20,7 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares)) {
+    if (calculateWinner(squares).winner) {
       return;
     }
     squares[i] = this.state.xIsNext ? '❌' : '⭕';
@@ -51,7 +51,9 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const win = calculateWinner(current.squares);
+    const winner = win.winner;
+    const winSquares = win.winSquares;
 
     const moves = history.map((step, move) => {
       const coord = move ? calculatePosition(step.squares, history[move - 1].squares) : null;
@@ -87,6 +89,7 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
+            winSquares={winSquares}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
